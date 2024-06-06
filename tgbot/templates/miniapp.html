@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Telegram Mini Apps Vanilla JS Sample App</title>
+    <style>
+        body {
+            --bg-color: var(--tg-theme-bg-color);
+            font: 12px/18px "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--tg-theme-text-color);
+            margin: 48px 24px;
+            padding: 0;
+            color-scheme: var(--tg-color-scheme);
+        }
+
+        a {
+            color: var(--tg-theme-link-color);
+        }
+        #viewport {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: var(--tg-viewport-stable-height, 100vh);
+            pointer-events: none;
+            transition: all .2s ease;
+        }
+        #viewport:after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            border-width: 4px;
+            border-style: solid;
+            border-image: linear-gradient(45deg, rgba(64, 224, 208, .5), rgba(173, 255, 47, .5)) 1;
+        }
+
+        #viewport-params-size,
+        #viewport-params-expand {
+            content: attr(text);
+            position: absolute;
+            display: inline-block;
+            background: var(--tg-theme-link-color, rgb(64, 224, 208));
+            right: 4px;
+            left: auto;
+            font-size: 8px;
+            padding: 4px;
+            vertical-align: top;
+        }
+        #viewport-params-size {
+            top: 4px;
+        }
+        #viewport-params-expand {
+            top: 30px;
+        }
+
+        #ton-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .telegram-button {
+            font-size: 16px; /* 增加字体大小 */
+            height: 50px; /* 增加按钮的高度 */
+            padding: 10px 10px; /* 增加内边距以使按钮看起来更大 */
+        }
+
+    </style>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+
+<body>
+    <main>
+        <button id="ton-button" class="telegram-button" onclick="showPopup();">提现</button>
+        
+        <div align="center">
+            <a href="https://ton.org/"><img width="68" src="https://tbag127.github.io/assets/tapps.png" alt="logo of telegram web apps"></a>
+        </div>
+        <h1 id="username" style="text-align: center; margin-bottom: 20px;">Hi,</h1>
+        {% comment %} <p id="username" style="text-align: center; margin-bottom: 20px;">Loading...</p> {% endcomment %}
+        <!-- <h1 style="text-align: center; color: transparent;">PH</h1> -->
+
+        <div align="center">
+            {% comment %} onclick="Telegram.WebApp.showAlert('竹子可以用来抽奖');" {% endcomment %}
+            <button id="points" class="telegram-button" style="margin-right: 30px;">🎋 竹子</button>
+
+            <!-- <button class="telegram-button" onclick="showPopup();">TON：3.14</button> -->
+            <button id="tons" class="telegram-button" onclick="showPopup();">
+                <img src="https://tbag127.github.io/assets/ton_symbol.png" alt="Icon" style="vertical-align: middle; width: 20px; height: 20px; margin-right: 4px;">
+                <span id="ton-text">TON</span>
+            </button>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <img width="200" src="https://tbag127.github.io/assets/gift-removebg.png">
+        </div>
+        <!-- <h1 align="center">Buttons</h1> -->
+        <!-- <div  align="center">
+            <button onclick="Telegram.WebApp.expand();">Expand Webview</button>
+            <button onclick="toggleMainButton();">Toggle Main Button</button>
+        </div> -->
+
+        <!-- <h1 align="center">Links</h1>
+        <ul>
+            <li>
+                <a href="javascript:Telegram.WebApp.openTelegramLink('https://t.me/trendingapps');">Open link within Telegram</a>
+            </li>
+            <li>
+                <a href="javascript:Telegram.WebApp.openLink('https://ton.org/');">Open link in external browser</a>
+            </li>
+            <li>
+                <a href="javascript:Telegram.WebApp.openLink('https://telegra.ph/api',{try_instant_view:true});">Open link inside Telegram webview</a>
+            </li>
+        </ul> -->
+
+    </main>
+
+    <!-- <div id="viewport"></div>
+    <div id="viewport-params-size"></div>
+    <div id="viewport-params-expand"></div> -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        // 定义用于获取URL参数的函数
+        function getQueryParam(param) {
+            var searchParams = new URLSearchParams(window.location.search);
+            return searchParams.get(param);
+        }
+
+        // Init TWA
+        Telegram.WebApp.ready();
+
+        // 定义变量
+        var username;
+        var points;
+        var tons;
+        ////
+        // 获取用户数据
+        var initData = Telegram.WebApp && Telegram.WebApp.initData;
+
+        // if (!initData) {  // initData 为空，从 URL 参数获取 'id'
+        //     username = getQueryParam('id');
+        //     if (username) {
+        //         document.getElementById('username').textContent = `Hi, ${username}`;
+        //     }
+        // } else {
+
+        // 发送数据到 Django 服务器
+        fetch('/panda/get_user_info/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({
+                init_data: initData,
+                user_id: getQueryParam('id'),
+            })
+        }).then(response => response.json()).then(data => {
+            username = data.username
+            points = data.points
+            tons = data.tons
+            document.getElementById('username').textContent = `Hi, ${username}`;
+            document.getElementById('points').textContent = `🎋 竹子 ${points}`;
+            document.getElementById('ton-text').textContent = `TON ${tons}`;
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+
+        // }
+        ////
+
+        // Event occurs whenever theme settings are changed in the user's Telegram app (including switching to night mode).
+        Telegram.WebApp.onEvent('themeChanged', function() {
+            document.documentElement.className = Telegram.WebApp.colorScheme;
+        });
+
+        // Show main button
+        Telegram.WebApp.MainButton.setParams({
+            text: '🎁 点击抽奖 🎁' 
+        });
+        Telegram.WebApp.MainButton.onClick(function () {
+            // 发送数据到 Django 服务器
+            fetch('/panda/lottery/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                body: JSON.stringify({
+                    init_data: initData,
+                    user_id: getQueryParam('id'),
+                })
+            }).then(response => response.json()).then(data => {
+                Telegram.WebApp.showAlert(data.text)
+                points = data.points
+                tons = data.tons
+                document.getElementById('points').textContent = `🎋 竹子 ${points}`;
+                document.getElementById('ton-text').textContent = `TON ${tons}`;
+            }).catch(error => {
+                Telegram.WebApp.showAlert('抽奖失败，请联系管理员')
+                console.error('Error:', error);
+            });
+
+            // Telegram.WebApp.showAlert('消耗2个竹子，获得0.01个TON')
+        });	
+        Telegram.WebApp.MainButton.show();
+
+        // Function to call showPopup API
+        function showPopup() {
+            Telegram.WebApp.showPopup({
+                title: "TON 余额", // Telegram.WebApp.initDataUnsafe.user.first_name, // 'TON余额'
+                message: tons, // '3.14',
+                buttons: [
+                    {id: 'link', type: 'default', text: '全部提现'},
+                    {type: 'cancel', text: '取消'},
+                ]
+            }, function(btn) {
+                if (btn === 'link') {
+                    showWithdraw(); // Telegram.WebApp.openLink('https://ton.org/');
+                }
+            });
+        };
+
+        // Function to call showPopup API
+        function showWithdraw() {
+            // 发送数据到 Django 服务器
+            fetch('/panda/withdraw/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                body: JSON.stringify({
+                    init_data: initData,
+                    user_id: getQueryParam('id'),
+                })
+            }).then(response => response.json()).then(data => {    
+                Telegram.WebApp.showAlert(data.text)
+                // points = data.points
+                // tons = data.tons
+                // document.getElementById('points').textContent = `🎋 竹子 ${points}`;
+                // document.getElementById('ton-text').textContent = `TON ${tons}`;
+            }).catch(error => {
+                Telegram.WebApp.showAlert('提现失败，请联系管理员')
+                console.error('Error:', error);
+            });
+        };
+        
+        // Function to toggle main TWA button
+        function toggleMainButton() {
+            if (Telegram.WebApp.MainButton.isVisible) {
+                Telegram.WebApp.MainButton.hide();
+            } else {
+                Telegram.WebApp.MainButton.show();
+            }
+        };
+
+        // function setViewportData() {
+        //     var sizeEl = document.getElementById('viewport-params-size');
+        //     sizeEl.innerText = 'width: ' + window.innerWidth + ' x ' + 
+        //         'height: ' + Telegram.WebApp.viewportStableHeight;
+
+        //     var expandEl = document.querySelector('#viewport-params-expand');
+        //     expandEl.innerText = 'Is Expanded: ' + (Telegram.WebApp.isExpanded ? 'true' : 'false');
+        // }
+
+        // Telegram.WebApp.setHeaderColor('secondary_bg_color');
+
+        // setViewportData();
+        // Telegram.WebApp.onEvent('viewportChanged', setViewportData);
+
+        // Telegram.WebApp.onEvent('themeChanged', function() {
+        //     document.body.setAttribute('style', '--bg-color:' + Telegram.WebApp.backgroundColor);
+        // });
+
+    </script>
+
+    <!-- Eruda is console for mobile browsers -->
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
+</body>
+</html>

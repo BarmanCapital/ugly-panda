@@ -1,0 +1,3 @@
+pip3 install celery pytoniq_core pytonapi tonsdk pytonconnect aiogram
+
+pip3 install django django-extensions python-telegram-bot qrcode redis grpcio protobuf
