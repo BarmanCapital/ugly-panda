@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.db.models import Q
 from tgbot.consts import MSG_COMPLETE_STUDY
 from tgbot.models import MeUser, StudySentence, UserStudyRecord
-from uglypanda.settings import SSOUND_URL
+from uglypanda.settings import SSOUND_URL, TG_BOT_TOKEN, TG_FILE_URL_PREFIX
 
 
 POINTS_FOR_TYPE = {UserStudyRecord.TYPE_CHOICES_TEXT: 1, UserStudyRecord.TYPE_CHOICES_AUDIO: 3, }  # 送积分
@@ -94,9 +94,11 @@ def save_study_record(user_id, sentence, type, score='{"overall": 100}'):
 ## 外部（请求）服务相关
 
 def ssound_score(audio_url, text_eng):
+    full_audio_url = TG_FILE_URL_PREFIX + audio_url
+
     form_data = {
         "bucket": "TG",
-        "key": audio_url,
+        "key": full_audio_url,
         "refText": text_eng
     }
     resp = requests.post(SSOUND_URL, json=form_data)

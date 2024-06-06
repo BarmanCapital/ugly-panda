@@ -1,11 +1,10 @@
 import requests
-from uglypanda.settings import TG_BOT_TOKEN
 
-BASE_URL = "https://api.telegram.org/bot%s/" % TG_BOT_TOKEN
+from uglypanda.settings import TG_API_URL
 
 
 def send_message(chat_id, message):
-    post_url = BASE_URL + 'sendMessage'
+    post_url = TG_API_URL + 'sendMessage'
     form_data = {
         "chat_id": chat_id,
         "text": message
