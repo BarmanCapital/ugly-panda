@@ -6,6 +6,7 @@ t_simple
 .DS_Store
 .vscode
 
+static/
 tgbot/migrations/
 log/
 archive/
