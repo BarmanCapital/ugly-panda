@@ -14,10 +14,23 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import re
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.conf import settings
+from django.views.static import serve
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("panda/", include("tgbot.urls")),
 ]
+
+if not settings.DEBUG:
+    # url_static = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    prefix = settings.STATIC_URL
+    kwargs = {"document_root": settings.STATIC_ROOT}
+    url_static = [re_path(r"^%s(?P<path>.*)$" % re.escape(prefix.lstrip("/")), serve, kwargs=kwargs), ]
+    urlpatterns += url_static
+

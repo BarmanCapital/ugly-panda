@@ -12,7 +12,7 @@ from tgbot.consts import COMMON_WORDS_COUNT, DEFAULT_SCORE, MSG_CMD_HELP, MSG_DA
 from tgbot.tasks import tg_withdraw
 from tgbot.ton_api import get_comment_message
 from tgbot.utils import count_common_words, create_user, get_daily_sentence, has_sentence_study_record, save_study_record, ssound_score
-from tgbot.models import MeUser, UserStudyRecord
+from tgbot.models import UserStudyRecord
 from uglypanda.settings import TG_BOT_TOKEN, WEB_APP_URL
 
 import pytonconnect.exceptions
