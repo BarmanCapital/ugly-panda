@@ -1,5 +1,5 @@
 from decimal import Decimal
-import random
+import random, pytz
 from django.utils import timezone
 from tgbot.models import MeUser, UserActivity
 from tgbot.ton_api import send_ton
@@ -19,12 +19,20 @@ def get_lottery_tons():
         return Decimal("0.01")
 
 
+def get_today_range():
+    beijing_zone = pytz.timezone('Asia/Shanghai')
+    now_in_beijing = timezone.now().astimezone(beijing_zone)
+    today_start = now_in_beijing.replace(hour=0, minute=0, second=0, microsecond=0)
+    today_end = today_start + timezone.timedelta(days=1)
+    return today_start, today_end
+
+
 ACT_DESC_LOTTERY = "消耗竹子抽TON"
 LOTTERY_DAILY_TIMES = 2
 LOTTERY_POINTS = 2
 MSG_LOTTERY_COUNT = "今天已经抽奖%d次，达到上限，请明日再来。" % LOTTERY_DAILY_TIMES
-MSG_LOTTERY_POINTS = "你的竹子不到%d个，无法参加抽奖，请先打卡获取更多竹子。" % LOTTERY_POINTS
-MSG_LOTTERY_OK = "恭喜你！消耗%s个竹子抽到%s个TON币。"
+MSG_LOTTERY_POINTS = "你的竹子不到%d根，无法参加抽奖，请先打卡获取更多竹子。" % LOTTERY_POINTS
+MSG_LOTTERY_OK = "恭喜你！消耗%s根竹子抽到%s个TON币。"
 def activity_lottery(user: MeUser, desc=ACT_DESC_LOTTERY):
     """
     消耗竹子抽TON，返回消息（成功/失败等）
@@ -33,8 +41,7 @@ def activity_lottery(user: MeUser, desc=ACT_DESC_LOTTERY):
         return MSG_LOTTERY_POINTS
 
     # 判断是否当天已经抽奖2次，如果是就不能再抽奖了
-    today_start = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)
-    today_end = today_start + timezone.timedelta(days=1)
+    today_start, today_end = get_today_range()
     if UserActivity.objects.filter(user=user, type=UserActivity.TYPE_CHOICES_LOTTERY,
                                    created_time__gte=today_start, created_time__lt=today_end).count() >= LOTTERY_DAILY_TIMES:
         print("[activity_lottery] Already 2 lotteries today:", user.username)
@@ -75,8 +82,7 @@ def activity_withdraw_qualify(user: MeUser):
         print("[activity_withdraw] user.tons > 10:", user.username)
         return False, MSG_WITHDRAW_ERROR
 
-    today_start = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)
-    today_end = today_start + timezone.timedelta(days=1)
+    today_start, today_end = get_today_range()
     daily_count = UserActivity.objects.filter(user=user, type=UserActivity.TYPE_CHOICES_WITHDRAW,
                                               created_time__gte=today_start, created_time__lt=today_end).count()
     if daily_count >= WITHDRAW_DAILY_TIMES:

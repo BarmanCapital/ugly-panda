@@ -8,7 +8,7 @@ from telegram import constants
 from tgbot.activity import MSG_WITHDRAW_WAIT, activity_lottery, activity_withdraw_qualify
 
 from tgbot.connector import get_connector
-from tgbot.consts import COMMON_WORDS_COUNT, DEFAULT_SCORE, MSG_CMD_HELP, MSG_DAILY_SENTENCE, MSG_DAILY_STUDY, MSG_DEFAULT, MSG_HAS_RECORD, MSG_ORAL_SCORE_BAD, MSG_ORAL_SCORE_GOOD, MSG_SENTENCE_ERROR, MSG_WELCOME
+from tgbot.consts import COMMON_WORDS_COUNT, DEFAULT_SCORE, MSG_CMD_HELP, MSG_DAILY_SENTENCE, MSG_DAILY_STUDY, MSG_DEFAULT, MSG_HAS_RECORD, MSG_LOTTERY, MSG_ORAL_SCORE_BAD, MSG_ORAL_SCORE_GOOD, MSG_SENTENCE_ERROR, MSG_WELCOME
 from tgbot.tasks import tg_withdraw
 from tgbot.ton_api import get_comment_message
 from tgbot.utils import count_common_words, create_user, get_daily_sentence, has_sentence_study_record, save_study_record, ssound_score
@@ -110,12 +110,13 @@ async def command_start_handler(message: Message):
     print(message)
     print("message.text:", message.text)
     user_id, username = await get_user_info(message)
-    user = await sync_to_async(create_user)(user_id, username)
+    await sync_to_async(create_user)(user_id, username)
     
     button1 = KeyboardButton(text="🎙️句子打卡")
     webapp_url = WEB_APP_URL % user_id
     button2 = KeyboardButton(text="🔥抽奖", web_app=WebAppInfo(url=webapp_url))
-    button3 = KeyboardButton(text="📖帮助")
+    button3 = KeyboardButton(text="💸绑定钱包")
+    # button4 = KeyboardButton(text="📖帮助")
     button_list = [[button1], [button2, button3]]
 
     keyboard = types.ReplyKeyboardMarkup(keyboard=button_list, resize_keyboard=True)
@@ -177,7 +178,7 @@ async def command_connect_handler(message: Message):
             if wallet['name'] in SUPPORTED_WALLETS:
                 mk_b.button(text=wallet['name'], callback_data=f'connect:{wallet["name"]}')
         mk_b.adjust(1, )
-        await message.answer(text='选择你想绑定的钱包App', reply_markup=mk_b.as_markup())
+        await message.answer(text='选择你想绑定的钱包Dapps', reply_markup=mk_b.as_markup())
 
 
 @dp.message(Command('help'))
@@ -189,18 +190,16 @@ async def command_help_handler(message: Message):
 @dp.message(Command('daily'))
 async def command_daily_handler(message: Message):
     print(message)
-    sentence = await sync_to_async(get_daily_sentence)()
-    text = MSG_DAILY_SENTENCE % (sentence.text_eng, sentence.youtube_url)
-    await message.answer(text=text)
+    await message.answer(text=MSG_DAILY_STUDY)
 
 
 @dp.message(Command('lottery'))
 async def command_help_handler(message: Message):
     print(message)
-    user_id, username = await get_user_info(message)
-    user = await sync_to_async(create_user)(user_id, username)
-    text = await sync_to_async(activity_lottery)(user)
-    await message.answer(text=text)
+    # user_id, username = await get_user_info(message)
+    # user = await sync_to_async(create_user)(user_id, username)
+    # text = await sync_to_async(activity_lottery)(user)
+    await message.answer(text=MSG_LOTTERY)
 
 
 @dp.message(Command('withdraw'))
@@ -234,6 +233,8 @@ async def process_message_handler(message: Message):
         await message.answer(text=MSG_CMD_HELP)
     elif text == "🎙️句子打卡":
         await message.answer(text=MSG_DAILY_STUDY)
+    elif text == "💸绑定钱包":
+        await command_connect_handler(message)
     else:
         await message.answer(text=MSG_DEFAULT)
 

@@ -2,7 +2,7 @@ import json, re, requests, pytz
 from datetime import timedelta
 from django.utils import timezone
 from django.db.models import Q
-from tgbot.consts import MSG_COMPLETE_STUDY
+from tgbot.consts import MSG_COMPLETE_STUDY, MSG_COMPLETE_STUDY_AUDIO, MSG_COMPLETE_STUDY_TEXT
 from tgbot.models import MeUser, StudySentence, UserStudyRecord
 from uglypanda.settings import SSOUND_URL, TG_BOT_TOKEN, TG_FILE_URL_PREFIX
 
@@ -89,7 +89,11 @@ def save_study_record(user_id, sentence, type, score='{"overall": 100}'):
     user.points += points
     user.save()
     
-    return MSG_COMPLETE_STUDY % (user.username, points)
+    if type == UserStudyRecord.TYPE_CHOICES_TEXT:
+        text = MSG_COMPLETE_STUDY_TEXT % (user.username, points)
+    else:
+        text = MSG_COMPLETE_STUDY_AUDIO % (user.username, points)
+    return text
 
 ## 外部（请求）服务相关
 

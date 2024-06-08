@@ -49,8 +49,8 @@ def parse_init_data(init_data: str):
     &chat_instance=8282237084861241898&chat_type=private&auth_date=1716791273
     &hash=290b118af296f30ac725c0af2d42aa8da45fbcc8302f1855a2c1f999bde1f7bb
     """
-    param_list = init_data.split('&')
-    data_check = param_list[0]
+    # param_list = init_data.split('&')
+    data_check = init_data  # param_list[0]
     print("[parse_init_data] data_check:", data_check)
 
     # 对整个初始化数据进行URL解码
@@ -58,7 +58,7 @@ def parse_init_data(init_data: str):
     print("[parse_init_data] decoded_data:", decoded_data)
 
     # 分割各个参数，这里假设参数以 "&" 符号分隔
-    param_pairs = decoded_data.split('\n')
+    param_pairs = decoded_data.split('&')  # '\n'
 
     # 创建字典来存储键值对
     data_dict = {}
