@@ -8,7 +8,7 @@ from aiogram import Bot
 from tgbot import tgbot_api
 from tgbot.activity import activity_withdraw
 from tgbot.models import MeUser
-from uglypanda.settings import TG_BOT_TOKEN
+from uglypanda.settings import TG_ADMIN_GROUP, TG_BOT_TOKEN
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
@@ -20,6 +20,7 @@ def tg_withdraw(user_id):
     print("[tg_withdraw] user_id:", user_id)
     user = MeUser.objects.get(user_id=user_id)
     text = asyncio.run(activity_withdraw(user))
+    tgbot_api.send_message(TG_ADMIN_GROUP, "[提现] @%s " %user.username + text)
     tgbot_api.send_message(user_id, text)
 
 
