@@ -1,5 +1,6 @@
 ## updated ##
 
+yarn.lock*
 uglypanda/settings.py
 nohup.out
 t_simple
@@ -12,6 +13,7 @@ log/
 archive/
 tmp/
 
+test_*
 tmp.*
 *.sql
 *.rdb
