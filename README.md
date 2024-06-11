@@ -5,14 +5,15 @@
 </a>
 <br></br>
 
-</div>
-
 <div>  
   
 [![Official TG Channel](<https://img.shields.io/badge/-The%20Official%20Telegram%20Channel%20%E2%86%92-rgb(21,204,116)?style=for-the-badge>)](https://t.me/Web3DailyEnglish)
 [![Official TG Bot](<https://img.shields.io/badge/-The%20Official%20Telegram%20Bot%20%E2%86%92-rgb(84,56,255)?style=for-the-badge>)](https://t.me/Web3EngBot)
 
 </div>
+
+</div>
+
 
 ---
 
