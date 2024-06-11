@@ -5,7 +5,19 @@
 </a>
 <br></br>
 
-<div>  
+[![LICENSE](https://img.shields.io/badge/license-Apache_2.0-green)](https://github.com/BarmanCapital/ugly-panda/blob/main/LICENSE)
+
+[![Framework](https://img.shields.io/badge/framework-Django-blue)](https://www.djangoproject.com/)
+
+[![Language](https://img.shields.io/badge/language-Python-green)](https://www.python.org/)
+
+[![GitHub Release](https://img.shields.io/badge/release-Beta_v1.0-blue)](https://github.com/BarmanCapital/ugly-panda/releases)
+
+[![Web3](https://img.shields.io/badge/web3-Ton_Blockchain-green)](https://ton.org/)
+
+[![Platform](https://img.shields.io/badge/platform-Telegram-blue)](https://telegram.org/)
+
+<div>
   
 [![Official TG Channel](<https://img.shields.io/badge/-The%20Official%20Telegram%20Channel%20%E2%86%92-rgb(21,204,116)?style=for-the-badge>)](https://t.me/Web3DailyEnglish)
 [![Official TG Bot](<https://img.shields.io/badge/-The%20Official%20Telegram%20Bot%20%E2%86%92-rgb(84,56,255)?style=for-the-badge>)](https://t.me/Web3EngBot)
