@@ -6,15 +6,10 @@
 <br></br>
 
 [![LICENSE](https://img.shields.io/badge/license-Apache_2.0-green)](https://github.com/BarmanCapital/ugly-panda/blob/main/LICENSE)
-
 [![Framework](https://img.shields.io/badge/framework-Django-blue)](https://www.djangoproject.com/)
-
 [![Language](https://img.shields.io/badge/language-Python-green)](https://www.python.org/)
-
 [![GitHub Release](https://img.shields.io/badge/release-Beta_v1.0-blue)](https://github.com/BarmanCapital/ugly-panda/releases)
-
 [![Web3](https://img.shields.io/badge/web3-Ton_Blockchain-green)](https://ton.org/)
-
 [![Platform](https://img.shields.io/badge/platform-Telegram-blue)](https://telegram.org/)
 
 <div>
