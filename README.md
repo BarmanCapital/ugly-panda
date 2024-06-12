@@ -31,6 +31,12 @@ Ugly Panda is a learn-to-earn TMA for learning English, designed for the vast au
 
 Join the Telegram channel to learn Web3 English : https://t.me/Web3DailyEnglish
 
+<div align="center">
+
+![Ugly-Panda TG-Bots](./docs/tg-bots.png)
+
+</div>
+
 # Problems
 The entire Chinese-speaking region has over 1.5 billion potential Web3 users; however, the vast majority of them are not proficient in English, which prevents them from quickly and thoroughly understanding and immersing themselves in the exciting world of Web3.Proficiency in English specific to the Web3 sector is a fundamental requirement.
 

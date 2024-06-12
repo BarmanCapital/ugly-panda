@@ -5,10 +5,10 @@ import time
 from asgiref.sync import sync_to_async
 
 from telegram import constants
-from tgbot.activity import MSG_WITHDRAW_WAIT, activity_lottery, activity_withdraw_qualify
+from tgbot.activity import MSG_WITHDRAW_WAIT, activity_withdraw_qualify
 
 from tgbot.connector import get_connector
-from tgbot.consts import COMMON_WORDS_COUNT, DEFAULT_SCORE, MSG_CMD_HELP, MSG_DAILY_SENTENCE, MSG_DAILY_STUDY, MSG_DEFAULT, MSG_HAS_RECORD, MSG_LOTTERY, MSG_ORAL_SCORE_BAD, MSG_ORAL_SCORE_GOOD, MSG_SENTENCE_ERROR, MSG_WELCOME
+from tgbot.consts import COMMON_WORDS_COUNT, DEFAULT_SCORE, MSG_CMD_HELP, MSG_DAILY_STUDY, MSG_DEFAULT, MSG_HAS_RECORD, MSG_LOTTERY, MSG_ORAL_SCORE_BAD, MSG_ORAL_SCORE_GOOD, MSG_SENTENCE_ERROR, MSG_WELCOME
 from tgbot.tasks import tg_withdraw
 from tgbot.ton_api import get_comment_message
 from tgbot.utils import count_common_words, create_user, get_daily_sentence, has_sentence_study_record, save_study_record, ssound_score
