@@ -47,9 +47,29 @@ The entire Chinese-speaking region has over 1.5 billion potential Web3 users; ho
 4. When users withdraw Tons, they naturally learn how to use a cryptocurrency wallet, thus converting Telegram users into TON users.
 
 # Roadmap
-1. Increase user retention and daily activity: Design a variety of point reward programs;
-2. Attract more users: Develop an invitation plan to motivate users to invite friends to use Ugly Panda;
-3. User loyalty program: Invite partner projects to airdrop project NFTs or tokens to Ugly Panda users.
+
+### Implementation of a Point Reward System
+Objective: To increase user retention and daily activity on the Ugly Panda platform.  
+Details:  
+- Launch Phase: Design and implement a tier-based point system where users can earn points for daily logins, posting content, and engaging with other users.
+- Reward Mechanism: Introduce various incentives such as unlocking special features, exclusive content, or discounts on merchandise as users accumulate more points.
+- Purpose: This system aims to encourage users to interact more frequently and deeply with the platform, thus enhancing overall engagement and retention.
+
+### User Referral Program
+Objective: To attract more users to Ugly Panda and expand our community.  
+Details:  
+- Referral Incentives: Develop a referral program that rewards existing users with points, discounts, or exclusive content for inviting new users to the platform.
+- Tracking and Rewards: Implement a tracking system to ensure referrers receive their rewards as new invitees sign up and engage on the platform.
+- Purpose: The referral program is intended to leverage the existing user base to organically grow the platform’s user base, reducing dependence on conventional advertising methods.
+
+### User Loyalty Program with Partner Projects
+Objective: To enhance user loyalty and enrich the Ugly Panda ecosystem.  
+Details:  
+- Collaboration with Partners: Invite potential partners to airdrop their NFTs or tokens to active Ugly Panda users.
+- Exclusive Rewards: Set criteria for eligibility based on user activity levels, ensuring that the most engaged users are rewarded.
+- Purpose: This program aims to provide additional value to our users and strengthen community bonds, encouraging long-term engagement and loyalty.
+
+These strategic initiatives are designed to foster a vibrant, engaged, and steadily growing community on the Ugly Ken platform. Implementing these programs will not only enhance the user experience but also boost the platform's overall health and sustainability.
 
 # License
 Ugly-Panda is under the Apache 2.0 license. See the [LICENSE](./LICENSE) file for details.
