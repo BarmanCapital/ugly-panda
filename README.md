@@ -73,3 +73,8 @@ These strategic initiatives are designed to foster a vibrant, engaged, and stead
 
 # License
 Ugly-Panda is under the Apache 2.0 license. See the [LICENSE](./LICENSE) file for details.
+
+# Contact Us
+- Telegram Bot: [@Web3EngBot](https://t.me/Web3EngBot)
+- Dev: [@tbag127](https://t.me/tbag127)
+- Email: barmancapital127@gmail.com
