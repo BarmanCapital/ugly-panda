@@ -69,7 +69,7 @@ Details:
 - Exclusive Rewards: Set criteria for eligibility based on user activity levels, ensuring that the most engaged users are rewarded.
 - Purpose: This program aims to provide additional value to our users and strengthen community bonds, encouraging long-term engagement and loyalty.
 
-These strategic initiatives are designed to foster a vibrant, engaged, and steadily growing community on the Ugly Ken platform. Implementing these programs will not only enhance the user experience but also boost the platform's overall health and sustainability.
+These strategic initiatives are designed to foster a vibrant, engaged, and steadily growing community on the Ugly Panda platform. Implementing these programs will not only enhance the user experience but also boost the platform's overall health and sustainability.
 
 # License
 Ugly-Panda is under the Apache 2.0 license. See the [LICENSE](./LICENSE) file for details.
