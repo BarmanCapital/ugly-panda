@@ -27,6 +27,8 @@
 # Vision
 Ugly Panda is a learn-to-earn TMA for learning English, designed for the vast audience of over 1.5 billion potential Web3 users in the Chinese-speaking regions. By engaging with daily original English content, users can gain points and enter raffles to win TON and other token rewards from collaborating partners.Ugly Panda will produce original English learning videos for collaborative partners, serving as a prime gateway for projects aiming to reach 1.5 billion Chinese-speaking users.
 
+[![Vision](https://img.youtube.com/vi/IS2LQ6riLJY/maxresdefault.jpg)](https://youtu.be/IS2LQ6riLJY)
+
 # Usage
 
 Join the Telegram channel to learn Web3 English : https://t.me/Web3DailyEnglish
@@ -37,7 +39,7 @@ Join the Telegram channel to learn Web3 English : https://t.me/Web3DailyEnglish
 
 </div>
 
-# Problems
+# Existing Challenges
 The entire Chinese-speaking region has over 1.5 billion potential Web3 users; however, the vast majority of them are not proficient in English, which prevents them from quickly and thoroughly understanding and immersing themselves in the exciting world of Web3.Proficiency in English specific to the Web3 sector is a fundamental requirement.
 
 # Key Features
