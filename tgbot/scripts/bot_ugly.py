@@ -8,7 +8,7 @@ from telegram import constants
 from tgbot.activity import MSG_WITHDRAW_WAIT, activity_withdraw_qualify
 
 from tgbot.connector import get_connector
-from tgbot.consts import COMMON_WORDS_COUNT, DEFAULT_SCORE, MSG_CMD_HELP, MSG_DAILY_STUDY, MSG_DEFAULT, MSG_HAS_RECORD, MSG_LOTTERY, MSG_ORAL_SCORE_BAD, MSG_ORAL_SCORE_GOOD, MSG_SENTENCE_ERROR, MSG_WELCOME
+from tgbot.consts import COMMON_WORDS_COUNT, DEFAULT_SCORE, MSG_CMD_HELP, MSG_DAILY_STUDY, MSG_DEFAULT, MSG_HAS_RECORD, MSG_HISTORY_STUDY, MSG_LOTTERY, MSG_ORAL_SCORE_BAD, MSG_ORAL_SCORE_GOOD, MSG_SENTENCE_ERROR, MSG_WELCOME
 from tgbot.tasks import tg_withdraw
 from tgbot.ton_api import get_comment_message
 from tgbot.utils import count_common_words, create_user, get_daily_sentence, has_sentence_study_record, save_study_record, ssound_score
@@ -112,12 +112,12 @@ async def command_start_handler(message: Message):
     user_id, username = await get_user_info(message)
     await sync_to_async(create_user)(user_id, username)
     
-    button1 = KeyboardButton(text="🎙️句子打卡")
     webapp_url = WEB_APP_URL % user_id
-    button2 = KeyboardButton(text="🔥抽奖", web_app=WebAppInfo(url=webapp_url))
+    button1 = KeyboardButton(text="🔥抽奖", web_app=WebAppInfo(url=webapp_url))
+    button2 = KeyboardButton(text="🎙️句子打卡")
     button3 = KeyboardButton(text="💸绑定钱包")
-    # button4 = KeyboardButton(text="📖帮助")
-    button_list = [[button1], [button2, button3]]
+    button4 = KeyboardButton(text="📝往期句子")
+    button_list = [[button1, button2], [button3, button4]]
 
     keyboard = types.ReplyKeyboardMarkup(keyboard=button_list, resize_keyboard=True)
     await message.answer(MSG_CMD_HELP, reply_markup=keyboard)
@@ -233,6 +233,8 @@ async def process_message_handler(message: Message):
         await message.answer(text=MSG_CMD_HELP)
     elif text == "🎙️句子打卡":
         await message.answer(text=MSG_DAILY_STUDY)
+    elif text == "📝往期句子":
+        await message.answer(text=MSG_HISTORY_STUDY)
     elif text == "💸绑定钱包":
         await command_connect_handler(message)
     else:
